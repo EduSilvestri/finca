@@ -14,6 +14,7 @@ import { CommonModule } from '@angular/common';
 export class VisitaComponent implements OnInit {
   form!: FormGroup;
   minFecha: string = '';
+  horasDisponibles: string[] = [];
 
   nombreControl!: FormControl;
   emailControl!: FormControl;
@@ -26,6 +27,7 @@ export class VisitaComponent implements OnInit {
 
   ngOnInit(): void {
     this.setMinFecha();
+    this.generarHorasDisponibles();
 
     const user = this.auth.getUser();
 
@@ -45,6 +47,15 @@ export class VisitaComponent implements OnInit {
     const hoy = new Date();
     hoy.setDate(hoy.getDate() + 2);
     this.minFecha = hoy.toISOString().split('T')[0];
+  }
+
+  generarHorasDisponibles(): void {
+    const horas: string[] = [];
+    for (let h = 8; h <= 17; h++) {
+      const hora = h < 10 ? `0${h}:00` : `${h}:00`;
+      horas.push(hora);
+    }
+    this.horasDisponibles = horas;
   }
 
   agendarVisita(): void {

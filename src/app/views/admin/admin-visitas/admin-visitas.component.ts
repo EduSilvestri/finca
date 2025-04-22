@@ -26,6 +26,7 @@ export class AdminVisitasComponent implements OnInit {
   visitasPorPagina: number = 15;
   totalPaginas: number = 1;
   paginas: number[] = [];
+  horasDisponibles: string[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -34,8 +35,18 @@ export class AdminVisitasComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.generarHorasDisponibles();
     this.initForm();
     this.cargarVisitas();
+  }
+
+  generarHorasDisponibles(): void {
+    const horas: string[] = [];
+    for (let h = 8; h <= 17; h++) {
+      const hora = h < 10 ? `0${h}:00` : `${h}:00`;
+      horas.push(hora);
+    }
+    this.horasDisponibles = horas;
   }
 
   initForm(): void {
@@ -43,7 +54,8 @@ export class AdminVisitasComponent implements OnInit {
       nombreVisitante: [{ value: '', disabled: true }],
       telefono: [''],
       tipoAnimal: [''],
-      fecha: [''],
+      fecha: [''], // aquí guardarás 'YYYY-MM-DD'
+      hora: [''],  // seleccionada de horasDisponibles
       comentario: ['']
     });
   }
@@ -89,20 +101,19 @@ export class AdminVisitasComponent implements OnInit {
 
   guardarVisita(): void {
     if (this.form.invalid) return;
-  
+
     const raw = this.form.getRawValue();
-  
+
     const data: any = {
       telefono: raw.telefono,
-      fecha: raw.fecha,
+      fecha: `${raw.fecha}T${raw.hora}`,  // combinar fecha y hora
       comentario: raw.comentario
     };
-  
-    // Solo incluir animales si es una nueva visita
+
     if (!this.visitaEditandoId) {
       data.animales = [{ tipo: raw.tipoAnimal }];
     }
-  
+
     if (this.visitaEditandoId) {
       this.visitaService.actualizarVisita(this.visitaEditandoId, data).subscribe(() => {
         this.cargarVisitas();
@@ -115,31 +126,29 @@ export class AdminVisitasComponent implements OnInit {
       });
     }
   }
-  
-  
-  
+
   
 
   editarVisita(visita: Visita): void {
     this.visitaEditandoId = visita.id ?? null;
 
-    const fechaFormateada = visita.fecha
-  ? new Date(visita.fecha).toISOString().substring(0, 16) // formato 'yyyy-MM-ddTHH:mm'
-  : '';
+    const fecha = new Date(visita.fecha);
+    const fechaStr = fecha.toISOString().split('T')[0];
+    const horaStr = fecha.toTimeString().substring(0, 5);
 
     this.form.patchValue({
       nombreVisitante: visita.usuario?.nombre || 'Sin nombre',
       telefono: visita.telefono,
       tipoAnimal: visita.tipoAnimal || (visita.animales?.[0]?.tipo ?? ''),
-      fecha: fechaFormateada,
+      fecha: fechaStr,
+      hora: horaStr,
       comentario: visita.comentario || ''
     });
-  
-    // Abre el modal con Bootstrap
+
     const modal = new bootstrap.Modal(document.getElementById('modalVisita')!);
     modal.show();
   }
-  
+
 
   eliminarVisita(id: number): void {
     console.log('Intentando eliminar visita ID:', id);

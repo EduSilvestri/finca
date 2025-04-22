@@ -33,7 +33,12 @@
 
         <div class="col-md-6">
           <label class="form-label fw-semibold text-brown">Hora</label>
-          <input type="time" class="form-control form-control-lg" formControlName="hora" min="08:00" max="17:00">
+          <select class="form-select form-control-lg" formControlName="hora">
+            <option value="">Seleccione una hora</option>
+            @for (hora of horasDisponibles; track hora) {
+              <option [value]="hora">{{ hora }}</option>
+            }
+          </select>
         </div>
 
         <div class="col-md-6">

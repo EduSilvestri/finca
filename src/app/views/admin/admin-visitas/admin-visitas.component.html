@@ -123,9 +123,19 @@
               </select>
             </div>
             <div class="col-md-6">
-                <label class="form-label fw-semibold text-brown">Fecha *</label>
-                <input type="datetime-local" formControlName="fecha" class="form-control form-control-lg" />
-              </div>
+              <label class="form-label fw-semibold text-brown">Fecha *</label>
+              <input type="date" class="form-control form-control-lg" formControlName="fecha" />
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label fw-semibold text-brown">Hora *</label>
+              <select formControlName="hora" class="form-select form-control-lg">
+                <option value="">Selecciona</option>
+                @for (hora of horasDisponibles; track hora) {
+                  <option [value]="hora">{{ hora }}</option>
+                }
+              </select>
+            </div>
               
             <div class="col-12">
               <label class="form-label fw-semibold text-brown">Comentario</label>
