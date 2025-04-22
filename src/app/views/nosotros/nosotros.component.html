@@ -1,0 +1,164 @@
+<div class="quienes-somos">
+
+    <!-- Sección Hero -->
+    <section class="hero-nosotros d-flex align-items-center text-center text-light position-relative">
+      <div class="container z-1">
+        <h1 class="display-3 fw-bold hero-title">El Sueño de Miguel</h1>
+        <p class="lead mx-auto hero-subtitle">
+          Una visión sembrada entre generaciones, guiada por la pasión y forjada con esfuerzo.
+        </p>
+      </div>
+      <div class="overlay"></div>
+    </section>
+    
+  
+<!-- Cita inspiradora -->
+<section class="fondo-claro text-center py-5">
+  <div class="container">
+    <blockquote class="blockquote text-brown fs-4 fst-italic">
+      “El campo enseña que todo gran fruto necesita tiempo, trabajo y raíces firmes.”
+    </blockquote>
+  </div>
+</section>
+
+<!-- Historia narrativa -->
+<section class="seccion-historia px-4 py-5">
+  <div class="container">
+    <div class="row align-items-center gy-4">
+      <div class="col-lg-7">
+        <h2 class="fw-bold text-brown mb-4">El Inicio de un Sueño</h2>
+        <p class="fs-5">
+          La historia de <strong>Hacienda La Ganancia</strong> comienza mucho antes de que existiera su nombre, en las manos trabajadoras y la visión férrea de un hombre que cruzó océanos para comenzar de nuevo. Luego de la guerra, 
+          <strong>Miguel Silvestri</strong> dejó su natal <em>Campobasso, Italia</em>, para asentarse en las tierras fértiles de <strong>Barinas, Venezuela</strong>. En ese nuevo hogar construyó no solo una familia, sino también su legado: 
+          la <strong>Hacienda San José</strong>.
+        </p>
+        <p class="fs-5">
+          Con esfuerzo incansable, Miguel se dedicó a perfeccionar la genética bovina, implementando prácticas que marcaron la diferencia en la región. 
+          Su amor por el campo y su compromiso con la calidad convirtieron a San José en un referente ganadero. Al fallecer, su obra fue dividida entre sus hijos, dando origen a cuatro nuevas haciendas. Entre ellas, nació 
+          <strong>Hacienda La Ganancia</strong>, bajo el cuidado y liderazgo de su hijo, <strong>Luis Silvestri</strong>.
+        </p>
+        <p class="fs-5">
+          Hoy, La Ganancia continúa con esa misma pasión heredada. Con un enfoque claro en el <em>ordeño</em>, la <em>mejora genética</em> y la <em>comercialización de toros y mautes</em>, 
+          la hacienda no solo conserva el espíritu de su fundador, sino que lo honra en cada paso.
+        </p>
+        <blockquote class="blockquote text-brown mt-4 ps-3 border-start border-4 border-brown fs-5 fst-italic">
+          “Seguimos escribiendo esta historia con el corazón en el campo y la mirada en el futuro.”
+        </blockquote>
+      </div>
+
+      <div class="col-lg-5 text-center">
+        <img src="images/pexels-david-bartus-43782-2539909.jpg" alt="Imagen historia" class="img-fluid rounded shadow-sm border">
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="separador-linea my-5"></div>
+
+
+
+      <section class="fondo-suave seccion-py">
+        <div class="container">
+          <div class="titulo-seccion">
+            <h2>Nuestra Trayectoria</h2>
+          </div>
+      
+          <div class="timeline-horizontal d-flex justify-content-between position-relative">
+            @for (evento of eventos; track evento) {
+              <div class="timeline-box text-center">
+                <div class="icon-circle mx-auto mb-3">
+                  <i class="bi bi-calendar-event-fill"></i>
+                </div>
+                <h5 class="fw-bold text-brown">{{ evento.anio }}</h5>
+                <p class="small mb-0 px-2">{{ evento.titulo }}</p>
+              </div>
+            }
+            <div class="timeline-line"></div>
+          </div>
+        </div>
+      </section>
+      
+  <div class="separador-linea my-5"></div>
+      
+      
+      
+      <section class="fondo-claro seccion-py vision">
+        <div class="container text-center">
+          <div class="titulo-seccion">
+            <h2>Misión y Visión</h2>
+          </div>
+          <div class="row justify-content-center g-4">
+            <div class="col-md-6">
+              <div class="card-mision shadow-sm h-100">
+                <i class="bi bi-bullseye icono-seccion"></i>
+                <h4 class="fw-semibold mb-2 text-brown">Nuestra Misión</h4>
+                <p>Producir animales de alta calidad genética, sanos y fuertes, fomentando prácticas sostenibles y el respeto por la naturaleza.</p>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="card-mision shadow-sm h-100">
+                <i class="bi bi-eye icono-seccion"></i>
+                <h4 class="fw-semibold mb-2 text-brown">Nuestra Visión</h4>
+                <p>Ser una hacienda líder en genética bovina en Venezuela, reconocida por su innovación, ética y compromiso con el desarrollo ganadero.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+  <div class="separador-linea my-5"></div>
+
+
+    <!-- Sección 4: Valores -->
+    <section class="fondo-suave seccion-py">
+      <div class="container text-center">
+        <div class="titulo-seccion">
+          <h2>Valores</h2>
+        </div>
+        <div class="row justify-content-center g-4">
+          @for (valor of valores; track valor) {
+            <div class="col-12 col-sm-6 col-lg-3">
+              <div class="valor-card-hover p-4 rounded-4 shadow-sm h-100 border border-warning-subtle">
+                <i class="bi {{ valor.icono }} icono-seccion"></i>
+                <h5 class="text-brown fw-semibold mt-2">{{ valor.nombre }}</h5>
+                <p class="text-muted small mb-0">{{ valor.descripcion }}</p>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    </section>
+    
+    
+  <div class="separador-linea my-5"></div>
+
+
+
+    <section class="fondo-mapa text-center seccion-py text-brown">
+      <div class="container">
+        <h2 class="seccion-titulo mb-3">¿Dónde estamos?</h2>
+        <p class="fs-5 mb-4">
+          Nos encontramos en San Silvestre, Barinas, Venezuela.<br>
+          ¡Ven a conocernos y vive la experiencia ganadera!
+        </p>
+    
+        <div class="ratio ratio-16x9 shadow rounded overflow-hidden">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d63284.69405014188!2d-70.4325663!3d8.6245585!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e80e9ed066f22d7%3A0x1a04049a38be8a12!2sSan%20Silvestre%2C%20Barinas%2C%20Venezuela!5e0!3m2!1ses!2sve!4v1713200000000"
+            width="600" height="450" style="border:0;" allowfullscreen loading="lazy">
+          </iframe>
+        </div>
+    
+        <div class="mt-4">
+          <a routerLink="/visita" class="btn btn-mapa px-5 py-2 fs-5 rounded-pill">
+            Agendar Visita
+          </a>
+        </div>
+      </div>
+    </section>
+    
+    
+  
+  </div>
+  
+  

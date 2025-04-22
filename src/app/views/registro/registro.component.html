@@ -1,0 +1,36 @@
+<section class="registro-section d-flex align-items-center justify-content-center py-5 fondo-claro">
+    <div class="registro-card p-5 shadow rounded">
+      <h2 class="text-center fw-bold mb-4 text-brown">Crear Cuenta</h2>
+  
+      <form [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="off">
+        <div class="mb-4">
+          <label for="nombre" class="form-label fw-semibold text-brown">Nombre completo</label>
+          <input type="text" id="nombre" class="form-control form-control-lg" formControlName="nombre" placeholder="Tu nombre" autocomplete="off">
+        </div>
+  
+        <div class="mb-4">
+          <label for="email" class="form-label fw-semibold text-brown">Correo Electrónico</label>
+          <input type="email" id="email" class="form-control form-control-lg" formControlName="email" placeholder="ejemplo@correo.com" autocomplete="new-email">
+        </div>
+  
+        <div class="mb-4">
+          <label for="password" class="form-label fw-semibold text-brown">Contraseña</label>
+          <input type="password" id="password" class="form-control form-control-lg" formControlName="password" placeholder="Crea una contraseña" autocomplete="new-password">
+        </div>
+  
+        <button type="submit" class="btn btn-brown w-100 py-2 fs-5">Registrarse</button>
+      </form>
+      @if (error()) {
+        <p class="text-danger text-center mt-3">{{ error() }}</p>
+      }
+
+      @if (success()) {
+        <p class="text-success text-center mt-3">¡Registro exitoso! Redirigiendo...</p>
+      }
+  
+      <p class="text-center mt-4 text-muted small">
+        ¿Ya tienes una cuenta? <a routerLink="/login" class="text-brown fw-semibold text-decoration-none">Inicia sesión</a>
+      </p>
+    </div>
+  </section>
+  

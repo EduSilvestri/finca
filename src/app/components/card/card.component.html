@@ -1,0 +1,18 @@
+<div class="card shadow-sm h-auto">
+  <img [src]="data.image" class="card-img-top" alt="Imagen de {{ data.title }}">
+
+  <div class="card-body d-flex flex-column justify-content-between">
+    <h5 class="card-title">{{ data.title }}</h5>
+    <p class="card-text">
+      {{ expanded ? data.description : (data.description | slice:0:60) + '...' }}
+    </p>
+    <button class="btn btn-sm btn-outline-secondary mt-2 align-self-start" (click)="toggleExpand()">
+      {{ expanded ? 'Ver menos' : 'Ver más' }}
+    </button>
+  </div>
+
+  <div class="card-footer text-muted text-end small">
+    {{ data.date | date:'longDate' }}
+  </div>
+</div>
+

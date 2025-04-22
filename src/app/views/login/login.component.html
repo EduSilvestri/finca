@@ -1,0 +1,27 @@
+<section class="login-section d-flex align-items-center justify-content-center py-5 fondo-claro">
+    <div class="login-card p-5 shadow rounded">
+      <h2 class="text-center fw-bold mb-4 text-brown">Iniciar Sesión</h2>
+      
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="mb-4">
+          <label for="email" class="form-label fw-semibold text-brown">Correo Electrónico</label>
+          <input type="email" id="email" class="form-control form-control-lg" formControlName="email"  placeholder="ejemplo@correo.com">
+        </div>
+        <div class="mb-4">
+          <label for="password" class="form-label fw-semibold text-brown">Contraseña</label>
+          <input type="password" id="password" class="form-control form-control-lg" formControlName="password" placeholder="Ingresa tu contraseña">
+        </div>
+  
+        <button type="submit" class="btn btn-brown w-100 py-2 fs-5">Entrar</button>
+      </form>
+
+      @if (error()) {
+        <p class="text-danger text-center mt-3">{{ error() }}</p>
+      }
+  
+      <p class="text-center mt-4 text-muted small">
+        ¿No tienes cuenta? <a routerLink="/registro" class="text-brown fw-semibold text-decoration-none">Regístrate aquí</a>
+      </p>
+    </div>
+  </section>
+  

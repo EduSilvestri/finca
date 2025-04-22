@@ -1,0 +1,262 @@
+<div class="hero-animales d-flex align-items-center justify-content-center">
+  <div class="overlay"></div>
+  <div class="hero-content text-center text-light">
+    <h1 class="hero-title">Nuestros Animales</h1>
+    <p class="hero-subtitle">Explora cada categoría disponible en nuestra hacienda.</p>
+    
+    <div class="mt-4 d-flex justify-content-center gap-3 flex-wrap">
+      <a routerLink="/visita" class="btn btn-outline-light btn-lg">Agendar Visita</a>
+    </div>
+  </div>
+</div>
+
+
+<!-- Sección TOROS -->
+<section class="seccion-animales animal-section">
+  <div class="container py-5">
+    <div class="titulo-seccion">
+      <h3>Toros</h3>
+    </div>
+
+    <div class="carousel-wrapper">
+      <button class="carousel-arrow carousel-arrow-prev" (click)="prevSlide('toros')">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M15 18l-6-6 6-6"/>
+        </svg>
+      </button>
+      
+      <div class="carousel-container">
+        <div class="carousel-track" [style.transform]="'translateX(' + -currentPosition.toros + 'px)'">
+          @for (animal of toros; track animal.id) {
+            <div class="carousel-slide">
+              <div class="card-animal">
+                <div class="card h-100 rounded-4 shadow overflow-hidden border-0">
+                  @if (animal.foto) {
+                    <img [src]="'http://localhost/backend/public/' + animal.foto" class="card-img-top" alt="{{ animal.nombre }}">
+                  }
+                  <div class="card-body card-content">
+                    <h5 class="card-title">{{ animal.nombre }}</h5>
+          
+                    <ul class="list-unstyled card-datos mb-2">
+                      <li><strong>Raza:</strong> {{ animal.raza }}</li>
+                      <li><strong>Edad:</strong> {{ animal.edad }} años</li>
+                      <li><strong>Peso:</strong> {{ animal.peso }} kg</li>
+                      <li><strong>Precio:</strong> ${{ animal.precio }}</li>
+                    </ul>
+          
+                    @if (animal.descripcion) {
+                      <p class="card-description">{{ animal.descripcion }}</p>
+                    }
+                  </div>
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+      
+      <button class="carousel-arrow carousel-arrow-next" (click)="nextSlide('toros')">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 18l6-6-6-6"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="animal-info container text-center mt-5 mb-3 px-4 px-md-5 fade-in">
+      <h4 class="animal-subtitle text-brown fw-semibold mb-3">¿Qué distingue a nuestros toros?</h4>
+      <p class="animal-description mx-auto">
+        Criados con <span class="resaltado">cuidado especializado</span> y una <span class="resaltado">genética superior</span>,
+        nuestros toros están preparados para brindar un rendimiento excepcional en <span class="resaltado">producción ganadera</span>.
+        Se destacan por su <span class="resaltado">fortaleza física</span>, <span class="resaltado">salud óptima</span> y <span class="resaltado">alta calidad reproductiva</span>.
+      </p>
+    </div>
+  </div>
+</section>
+
+<div class="separador-linea my-5"></div>
+
+<!-- Sección VACAS -->
+<section class="seccion-animales animal-section">
+  <div class="container py-5">
+    <div class="titulo-seccion">
+      <h3>Vacas</h3>
+    </div>
+
+    <div class="carousel-wrapper">
+      <button class="carousel-arrow carousel-arrow-prev" (click)="prevSlide('vacas')">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M15 18l-6-6 6-6"/>
+        </svg>
+      </button>
+      
+      <div class="carousel-container">
+        <div class="carousel-track" [style.transform]="'translateX(' + -currentPosition.vacas + 'px)'">
+          @for (animal of vacas; track animal.id) {
+            <div class="carousel-slide">
+              <div class="card-animal">
+                <div class="card h-100 rounded-4 shadow overflow-hidden border-0">
+                  @if (animal.foto) {
+                    <img [src]="'http://localhost/backend/public/' + animal.foto" class="card-img-top" alt="{{ animal.nombre }}">
+                  }
+                  <div class="card-body card-content">
+                    <h5 class="card-title">{{ animal.nombre }}</h5>
+                    <ul class="list-unstyled card-datos mb-2">
+                      <li><strong>Raza:</strong> {{ animal.raza }}</li>
+                      <li><strong>Edad:</strong> {{ animal.edad }} años</li>
+                      <li><strong>Peso:</strong> {{ animal.peso }} kg</li>
+                      <li><strong>Litros promedio:</strong> {{ animal.litrosPromedio }} L/día</li>
+                      <li><strong>Precio:</strong> ${{ animal.precio }}</li>
+                    </ul>
+                    @if (animal.descripcion) {
+                      <p class="card-description">{{ animal.descripcion }}</p>
+                    }
+                  </div>
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+      
+      <button class="carousel-arrow carousel-arrow-next" (click)="nextSlide('vacas')">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 18l6-6-6-6"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="animal-info container text-center mt-5 mb-3 px-4 px-md-5 fade-in">
+      <h4 class="animal-subtitle text-brown fw-semibold mb-3">La excelencia en nuestras vacas</h4>
+      <p class="animal-description mx-auto">
+        Seleccionadas por su <span class="resaltado">capacidad lechera</span> y su <span class="resaltado">temperamento dócil</span>,
+        nuestras vacas son un pilar de productividad. Su adaptabilidad al clima y su genética robusta garantizan un <span class="resaltado">desempeño constante</span> y de alta calidad.
+      </p>
+    </div>
+  </div>
+</section>
+
+<div class="separador-linea my-5"></div>
+
+<!-- Sección NOVILLAS -->
+<section class="seccion-animales animal-section">
+  <div class="container py-5">
+    <div class="titulo-seccion">
+      <h3>Novillas</h3>
+    </div>
+
+    <div class="carousel-wrapper">
+      <button class="carousel-arrow carousel-arrow-prev" (click)="prevSlide('novillas')">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M15 18l-6-6 6-6"/>
+        </svg>
+      </button>
+      
+      <div class="carousel-container">
+        <div class="carousel-track" [style.transform]="'translateX(' + -currentPosition.novillas + 'px)'">
+          @for (animal of novillas; track animal.id) {
+            <div class="carousel-slide">
+              <div class="card-animal">
+                <div class="card h-100 rounded-4 shadow overflow-hidden border-0">
+                  @if (animal.foto) {
+                    <img [src]="'http://localhost/backend/public/' + animal.foto" class="card-img-top" alt="{{ animal.nombre }}">
+                  }
+                  <div class="card-body card-content">
+                    <h5 class="card-title">{{ animal.nombre }}</h5>
+                    <ul class="list-unstyled card-datos mb-2">
+                      <li><strong>Raza:</strong> {{ animal.raza }}</li>
+                      <li><strong>Edad:</strong> {{ animal.edad }} años</li>
+                      <li><strong>Peso:</strong> {{ animal.peso }} kg</li>
+                      <li><strong>Condición:</strong> {{ animal.prenada ? 'En gestación' : 'No en gestación' }}</li>
+                      <li><strong>Precio:</strong> ${{ animal.precio }}</li>
+                    </ul>
+                    @if (animal.descripcion) {
+                      <p class="card-description">{{ animal.descripcion }}</p>
+                    }
+                  </div>
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+      
+      <button class="carousel-arrow carousel-arrow-next" (click)="nextSlide('novillas')">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 18l6-6-6-6"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="animal-info container text-center mt-5 mb-3 px-4 px-md-5 fade-in">
+      <h4 class="animal-subtitle text-brown fw-semibold mb-3">El futuro del rebaño</h4>
+      <p class="animal-description mx-auto">
+        Las novillas de nuestra hacienda representan una <span class="resaltado">nueva generación</span> con excelente genética.
+        Reciben <span class="resaltado">atención veterinaria constante</span> y una <span class="resaltado">alimentación balanceada</span>,
+        preparándolas para convertirse en madres fuertes, sanas y productivas.
+      </p>
+    </div>
+  </div>
+</section>
+
+<div class="separador-linea my-5"></div>
+
+<!-- Sección MAUTES -->
+<section class="seccion-animales mautes">
+  <div class="container py-5">
+    <div class="titulo-seccion">
+      <h3>Mautes</h3>
+    </div>
+
+    <div class="carousel-wrapper">
+      <button class="carousel-arrow carousel-arrow-prev" (click)="prevSlide('mautes')">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M15 18l-6-6 6-6"/>
+        </svg>
+      </button>
+      
+      <div class="carousel-container">
+        <div class="carousel-track" [style.transform]="'translateX(' + -currentPosition.mautes + 'px)'">
+          @for (animal of mautes; track animal.id) {
+            <div class="carousel-slide">
+              <div class="card-animal">
+                <div class="card h-100 rounded-4 shadow overflow-hidden border-0">
+                  @if (animal.foto) {
+                    <img [src]="'http://localhost/backend/public/' + animal.foto" class="card-img-top" alt="Maute">
+                  }
+                  <div class="card-body card-content">
+                    <h5 class="card-title">Lote: {{ animal.lote || 'Sin asignar' }}</h5>
+                    <ul class="list-unstyled card-datos mb-2">
+                      <li><strong>Raza:</strong> {{ animal.raza }}</li>
+                      <li><strong>Edad:</strong> {{ animal.edad }} año</li>
+                      <li><strong>Peso:</strong> {{ animal.peso }} kg</li>
+                      <li><strong>Precio por animal:</strong> ${{ animal.precio }}</li>
+                      <li><strong>Precio del lote:</strong> ${{ animal.precioLote }}</li>
+
+                    </ul>
+                    @if (animal.descripcion) {
+                      <p class="card-description">{{ animal.descripcion }}</p>
+                    }
+                  </div>
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+      
+      <button class="carousel-arrow carousel-arrow-next" (click)="nextSlide('mautes')">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 18l6-6-6-6"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="animal-info container text-center mt-5 mb-3 px-4 px-md-5 fade-in">
+      <h4 class="animal-subtitle text-brown fw-semibold mb-3">Productividad en crecimiento</h4>
+      <p class="animal-description mx-auto">
+        Los mautes de nuestra finca son animales cruzados con gran potencial para <span class="resaltado">producción cárnica</span>.
+        Su <span class="resaltado">crecimiento rápido</span>, <span class="resaltado">estructura corporal robusta</span> y buena conversión alimenticia los hacen una opción ideal para quienes buscan rendimiento y calidad.
+      </p>
+    </div>
+  </div>
+</section>

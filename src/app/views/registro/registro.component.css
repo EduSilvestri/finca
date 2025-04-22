@@ -1,0 +1,36 @@
+.registro-section {
+    min-height: 90vh;
+    background-color: #fefaf5;
+  }
+  
+  .registro-card {
+    background-color: #fff;
+    max-width: 500px;
+    width: 100%;
+    border-left: 8px solid #8a5c2c;
+    border-radius: 1rem;
+  }
+  
+  .text-brown {
+    color: #5c4326;
+  }
+  
+  .btn-brown {
+    background-color: #8a5c2c;
+    color: #fff;
+    border: none;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-brown:hover {
+    background-color: #a76b32;
+  }
+  
+  /* Responsive */
+  @media (max-width: 576px) {
+    .registro-card {
+      margin: 0 1rem;
+      padding: 2rem 1.5rem;
+    }
+  }
+  

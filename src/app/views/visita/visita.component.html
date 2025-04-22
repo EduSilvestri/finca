@@ -1,0 +1,69 @@
+<section class="visita-section d-flex align-items-center justify-content-center py-5 fondo-claro">
+  <div class="visita-card p-5 shadow rounded">
+    <h2 class="text-center fw-bold mb-4 text-brown">Agendar Visita</h2>
+    <p class="text-center text-muted mb-4">Completa los siguientes campos para programar tu visita a la hacienda.</p>
+
+    <form [formGroup]="form" (ngSubmit)="agendarVisita()">
+      <div class="row g-4">
+        <div class="col-md-6">
+          <label class="form-label fw-semibold text-brown">Nombre</label>
+          <input type="text" class="form-control form-control-lg" [formControl]="nombreControl">
+        </div>
+
+        <div class="col-md-6">
+          <label class="form-label fw-semibold text-brown">Correo electrónico</label>
+          <input type="email" class="form-control form-control-lg" [formControl]="emailControl">
+        </div>
+
+        <div class="col-md-6">
+          <label class="form-label fw-semibold text-brown">Tipo de animal a visitar</label>
+          <select class="form-select form-control-lg" formControlName="tipoAnimal">
+            <option value="">Seleccione una opción</option>
+            <option value="Toro">Toro</option>
+            <option value="Vaca">Vaca</option>
+            <option value="Novilla">Novilla</option>
+            <option value="Maute">Maute</option>
+          </select>
+        </div>
+
+        <div class="col-md-6">
+          <label class="form-label fw-semibold text-brown">Fecha</label>
+          <input type="date" class="form-control form-control-lg" formControlName="fecha" [min]="minFecha">
+        </div>
+
+        <div class="col-md-6">
+          <label class="form-label fw-semibold text-brown">Hora</label>
+          <input type="time" class="form-control form-control-lg" formControlName="hora" min="08:00" max="17:00">
+        </div>
+
+        <div class="col-md-6">
+          <label class="form-label fw-semibold text-brown">Teléfono</label>
+          <input type="text" class="form-control form-control-lg" formControlName="telefono" placeholder="Ej: 8091234567" />
+          
+          @if (form.get('telefono')?.invalid && form.get('telefono')?.touched) {
+            <div class="text-danger mt-1 small">
+              @if (form.get('telefono')?.errors?.['required']) {
+                <span>El teléfono es obligatorio.</span>
+              }
+              @if (form.get('telefono')?.errors?.['minlength']) {
+                <span>Debe tener al menos 7 caracteres.</span>
+              }
+              @if (form.get('telefono')?.errors?.['maxlength']) {
+                <span>No puede exceder 20 caracteres.</span>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="col-12">
+          <label class="form-label fw-semibold text-brown">Comentario (opcional)</label>
+          <textarea class="form-control form-control-lg" rows="3" formControlName="comentario" placeholder="Escribe algún detalle adicional..."></textarea>
+        </div>
+      </div>
+
+      <div class="text-center mt-4">
+        <button class="btn btn-brown w-100 py-2 fs-5" type="submit" [disabled]="form.invalid">Enviar solicitud</button>
+      </div>
+    </form>
+  </div>
+</section>

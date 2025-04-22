@@ -1,0 +1,105 @@
+<div class="home">
+
+    <!-- Hero / Banner principal -->
+    <section class="hero d-flex align-items-center text-center text-light">
+      <div class="container">
+        <h1 class="display-4 fw-bold">Bienvenido a Hacienda La Ganancia</h1>
+        <p class="lead">Tradición, genética y excelencia en San Silvestre, Barinas, Venezuela.</p>
+        <div class="mt-4 d-flex justify-content-center gap-3 flex-wrap">
+          <a routerLink="/animales" class="btn btn-outline-light btn-lg">Ver Animales</a>
+          <a routerLink="/visita" class="btn btn-primary btn-lg">Agendar Visita</a>
+        </div>
+      </div>
+    </section>
+  
+    <!-- Sección 1: Nuestros Servicios -->
+  <section class="py-5 seccion-fondo-suave text-dark borde-servicio">
+    <div class="container text-center">
+      <div class="titulo-seccion">
+        <h2>Nuestros Servicios</h2>
+      </div>
+      <div class="row g-4">
+        @for (servicio of servicios; track servicio) {
+          <div class="col-md-6 col-lg-3">
+            <div class="p-3 border rounded-4 servicios-box shadow-sm h-100">
+              <i class="{{ servicio.icono }} fs-1 icono-dorado mb-3"></i>
+              <h5 class="fw-semibold">{{ servicio.titulo }}</h5>
+              <p class="small">{{ servicio.descripcion }}</p>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <div class="separador-linea my-5"></div>
+
+  <!-- Sección 3: Galería -->
+  <section class="py-5 seccion-galeria position-relative">
+    <div class="container text-center">
+      <div class="titulo-seccion">
+        <h2>Galería</h2>
+      </div>
+      <p class="small fst-italic mb-5 texto-galeria">
+        Una mirada a la nobleza del campo y nuestra historia en imágenes.
+      </p>
+      <div class="galeria-slider-wrapper">
+        <div class="galeria-slider" [ngStyle]="{ transform: 'translateX(-' + currentIndex * 100 + '%)' }">
+          @for (imagen of carrusel; track imagen) {
+            <div class="galeria-slide">
+              <img [src]="imagen" class="galeria-img img-fluid" alt="Imagen de la galería">
+            </div>
+          }
+        </div>
+  
+        <!-- Flechas fuera de la imagen -->
+        <button class="galeria-flecha left" (click)="retroceder()">‹</button>
+        <button class="galeria-flecha right" (click)="avanzar()">›</button>
+      </div>
+    </div>
+  </section>
+  
+  <div class="separador-linea my-5"></div>
+  
+
+
+  <!-- Sección 2: Beneficios -->
+  <section class="py-5 seccion-fondo-suave text-dark borde-elegirnos">
+    <div class="container text-center">
+      <div class="titulo-seccion">
+        <h2>¿Por qué elegirnos?</h2>
+      </div>
+      <div class="row justify-content-center g-4">
+        @for (beneficio of beneficios; track beneficio) {
+          <div class="col-md-6 col-lg-3">
+            <div class="p-3 beneficio-box h-100">
+              <i class="bi bi-check-circle-fill icono-beneficio mb-2"></i>
+              <p class="fw-semibold mb-1">{{ beneficio }}</p>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <div class="separador-linea my-5"></div>
+
+
+  <!-- NUEVA SECCIÓN 4: Novedades (cards) -->
+  <section class="seccion-novedades text-dark">
+    <div class="container">
+      <div class="titulo-seccion">
+        <h2>Novedades</h2>
+      </div>
+      <div class="row justify-content-center g-4">
+        @for (card of cards; track card) {
+          <div class="col-12 col-md-6 col-lg-4 d-flex">
+            <app-card [data]="card"></app-card>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  </div>
+  

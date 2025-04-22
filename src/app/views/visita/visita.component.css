@@ -1,0 +1,84 @@
+.visita-section {
+  min-height: 82vh;
+  background-color: #fefaf5;
+}
+
+.visita-card {
+  background-color: #fff;
+  max-width: 900px;
+  width: 100%;
+  border-left: 8px solid #8a5c2c;
+  border-radius: 1rem;
+}
+
+.text-brown {
+  color: #5c4326;
+}
+
+.btn-brown {
+  background-color: #8a5c2c;
+  color: #fff;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+.btn-brown:hover {
+  background-color: #a76b32;
+}
+
+textarea.form-control {
+  resize: none;
+  border-radius: 1rem;
+}
+
+/* Responsive */
+/* Responsive general */
+@media (max-width: 992px) {
+  .visita-card {
+    padding: 2rem 2rem;
+  }
+
+  .form-control-lg,
+  .form-select {
+    font-size: 1rem;
+    padding: 0.75rem 1rem;
+    border-radius: 0.8rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .visita-card {
+    padding: 2rem 1.5rem;
+  }
+
+  .hero-title {
+    font-size: 2rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1rem;
+  }
+
+  .form-label {
+    font-size: 0.95rem;
+  }
+
+  .form-control-lg,
+  .form-select {
+    font-size: 0.95rem;
+    padding: 0.7rem 1rem;
+    border-radius: 0.75rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .visita-card {
+    margin: 0 1rem;
+    padding: 2rem 1.2rem;
+  }
+
+  .btn-brown {
+    font-size: 1rem;
+  }
+}
+

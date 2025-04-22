@@ -1,0 +1,60 @@
+<nav class="navbar sticky-top navbar-expand-lg custom-navbar shadow p-3">
+  <div class="container-fluid">
+    <a class="navbar-brand fw-bold fs-3 text-gradient title" routerLink="/home">
+      Hacienda<span class="text-light"> La Ganancia</span>
+    </a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav d-flex flex-column flex-lg-row align-items-center gap-3 mx-auto text-center">
+
+
+        <!-- Links públicos -->
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/home" (click)="closeMenu()">Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/nosotros" (click)="closeMenu()">Quiénes Somos</a>
+        </li>
+
+        <!-- @if no autenticado -->
+        @if (!isAuthenticated) {
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/login" (click)="closeMenu()">Iniciar Sesión</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/registro" (click)="closeMenu()">Registrarse</a>
+          </li>
+        }
+
+        <!-- @if autenticado -->
+        @if (isAuthenticated) {
+          @if (isUser) {
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/animales" (click)="closeMenu()">Animales</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/visita" (click)="closeMenu()">Agendar Visita</a>
+            </li>
+          }
+
+          @if (isAdmin) {
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/admin/animales" (click)="closeMenu()">Gestionar Animales</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/admin/visitas" (click)="closeMenu()">Visitas</a>
+            </li>
+          }
+
+          <li class="nav-item">
+            <a class="nav-link text-danger" (click)="logout()">Cerrar Sesión</a>
+          </li>
+        }
+      </ul>
+    </div>
+  </div>
+</nav>

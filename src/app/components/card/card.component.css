@@ -1,0 +1,60 @@
+.card {
+  border: none;
+  border-radius: 0.75rem;
+  background-color: #fefaf5;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Imagen con altura fija y recorte suave */
+.card-img-top {
+  height: 200px;
+  object-fit: cover;
+  border-top-left-radius: 0.75rem;
+  border-top-right-radius: 0.75rem;
+}
+@media (min-width: 992px) {
+  .card-img-top {
+    height: 280px; 
+  }
+}
+
+/* Título y descripción */
+.card-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #3e2f20;
+  margin-bottom: 0.5rem;
+}
+
+.btn {
+  font-size: 0.85rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #e4b55c;
+  color: #1e1e1e;
+  border-color: #e4b55c;
+}
+
+
+.card-text {
+  font-size: 0.95rem;
+  color: #5a4b3a;
+}
+
+/* Footer de la card */
+.card-footer {
+  background-color: transparent;
+  border-top: none;
+  color: #a08c77;
+}
+

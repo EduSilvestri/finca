@@ -1,0 +1,332 @@
+/* Estilos base */
+body {
+    overflow-x: hidden;
+    background-color: #f8f4e9;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  .fondo-claro {
+    background-color: #f5e9d6 !important;
+  }
+  
+  .bg-claro {
+    background-color: #f5e9d6 !important;
+  }
+  
+  .text-brown {
+    color: #5c4326 !important;
+  }
+  
+  h2.fw-bold.text-brown {
+    font-size: 2.2rem;
+    margin-bottom: 1.5rem;
+    text-shadow: 1px 1px 2px rgba(58, 44, 26, 0.1);
+    position: relative;
+    display: inline-block;
+    padding-bottom: 0.5rem;
+  }
+  
+  h2.fw-bold.text-brown::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 400px;
+    height: 3px;
+    background-color: #8a6d46;
+    border-radius: 3px;
+  }
+  
+  /* Botones */
+  .btn-brown {
+    background-color: #5c4326 !important;
+    color: #fff !important;
+    border: none;
+    transition: background-color 0.3s ease;
+    border-radius: 30px;
+    font-weight: 600;
+    padding: 0.6rem 1.2rem;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 8px rgba(92, 67, 38, 0.2);
+  }
+  
+  .btn-brown:hover {
+    background-color: #c4a87c !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(92, 67, 38, 0.3);
+  }
+  
+  .btn-outline-brown {
+    color: #5c4326 !important;
+    border: 2px solid #5c4326 !important;
+    background-color: transparent !important;
+    border-radius: 30px;
+    padding: 0.4rem 1.2rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+  }
+  
+  .btn-outline-brown:hover {
+    background-color: #c4a87c !important;
+    border: 2px solid #c4a87c !important;
+    color: white !important;
+    transform: translateY(-1px);
+  }
+  
+  .btn-outline-brown.active {
+    background-color: #5c4326 !important;
+    color: white !important;
+    border-color: #5c4326 !important;
+    box-shadow: 0 2px 5px rgba(92, 67, 38, 0.2);
+  }
+  
+  /* Tabla */
+  .tabla-container {
+    width: 100%;
+    max-width: 95%;
+    background-color: white !important;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 8px 24px rgba(58, 44, 26, 0.08);
+    margin-bottom: 2rem;
+  }
+  
+  .tabla-scroll {
+    overflow-x: auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(58, 44, 26, 0.05);
+  }
+  
+  .table {
+    margin-bottom: 0;
+    border-collapse: separate;
+    border-spacing: 0;
+  }
+  
+  .table thead th {
+    background-color: #3a2c1a !important;
+    color: white !important;
+    font-weight: 600;
+    white-space: nowrap;
+    padding: 1rem;
+    border: none;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  
+  .table thead th:first-child {
+    border-top-left-radius: 8px;
+  }
+  
+  .table thead th:last-child {
+    border-top-right-radius: 8px;
+  }
+  
+  table.table td,
+  table.table th {
+    white-space: nowrap;
+    padding: 0.85rem 1rem;
+    vertical-align: middle;
+    border-right: 1px solid #e0d5c3;
+    border-bottom: 1px solid #e0d5c3;
+  }
+  
+  table.table td:first-child,
+  table.table th:first-child {
+    border-left: 1px solid #e0d5c3;
+  }
+  
+  table.table tbody tr:nth-child(odd) {
+    background-color: #f5e9d6 !important;
+  }
+  
+  table.table tbody tr:hover {
+    background-color: #e8d9bc !important;
+    transition: background-color 0.2s ease;
+  }
+  
+  /* Botones en la tabla */
+  .btn-ver,
+  .btn-editar,
+  .btn-outline-danger {
+    font-size: 0.85rem;
+    min-width: 90px !important;
+    padding: 0.35rem 1.2rem !important;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+  }
+  
+  .btn-ver {
+    background-color: #e8d9bc !important;
+    color: #3a2c1a !important;
+    border: 1px solid #c4a87c !important;
+  }
+  
+  .btn-ver:hover {
+    background-color: #c4a87c !important;
+    color: white !important;
+  }
+  
+  .btn-editar {
+    background-color: #c4a87c !important;
+    color: white !important;
+    border: none;
+  }
+  
+  .btn-editar:hover {
+    background-color: #8a6d46 !important;
+  }
+  
+  .btn-outline-danger {
+    border: 1px solid #dc3545 !important;
+    color: #dc3545 !important;
+  }
+  
+  .btn-outline-danger:hover {
+    background-color: #dc3545 !important;
+    color: white !important;
+  }
+  
+  /* Paginación */
+  .pagination .page-link {
+    color: #5c4326 !important;
+    border: 1px solid #c4a87c !important;
+    margin: 0 3px;
+    border-radius: 8px !important;
+    min-width: 40px;
+    text-align: center;
+    transition: all 0.3s ease;
+  }
+  
+  .pagination .page-item.active .page-link {
+    background-color: #5c4326 !important;
+    border-color: #5c4326 !important;
+    color: white !important;
+  }
+  
+  .pagination .page-link:hover {
+    background-color: #c4a87c !important;
+    color: white !important;
+    border-color: #c4a87c !important;
+  }
+  
+  /* Estilo tipo tarjeta para el modal */
+  .visita-card {
+    background-color: #fff;
+    max-width: 900px;
+    width: 100%;
+    border-left: 8px solid #5c4326;
+    border-radius: 1rem;
+  }
+  
+  .visita-card .form-control,
+  .visita-card .form-select {
+    border-radius: 1rem;
+    padding: 0.6rem 1rem;
+    border: 1px solid #d5c1a1;
+    background-color: rgba(255, 255, 255, 0.95);
+    transition: all 0.3s ease;
+  }
+  
+  .visita-card .form-control:focus,
+  .visita-card .form-select:focus {
+    border-color: #8a6d46;
+    box-shadow: 0 0 0 0.2rem rgba(138, 109, 70, 0.2);
+  }
+  
+  textarea.form-control {
+    resize: none;
+    border-radius: 1rem;
+  }
+
+  .badge-estado {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    border-radius: 20px;
+    text-transform: capitalize;
+    display: inline-block;
+  }
+  
+  .badge-pendiente {
+    background-color: #f5e9d6;
+    color: #8a6d46;
+    border: 1px solid #e0d5c3;
+  }
+  
+  .badge-confirmada {
+    background-color: #c4a87c;
+    color: #fff;
+  }
+  
+  .badge-cancelada {
+    background-color: #8a6d46;
+    color: #fff;
+  }
+
+  .select-estado {
+    border-radius: 20px;
+    border: 1px solid #c4a87c;
+    padding: 0.35rem 1.2rem;
+    font-size: 0.85rem;
+    min-width: 120px;
+    font-weight: 600;
+    text-transform: capitalize;
+    background-color: #f5e9d6;
+    color: #5c4326;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(92, 67, 38, 0.1);
+  }
+  
+  .select-estado:hover,
+  .select-estado:focus {
+    background-color: #e8d9bc;
+    outline: none;
+  }
+  
+  
+  
+  .modal-title {
+    font-size: 1.9rem;
+    color: #5c4326;
+    margin-bottom: 0.25rem;
+    font-weight: bold;
+  }
+  
+  /* Responsive */
+  @media (min-width: 1700px) {
+    .tabla-scroll {
+      overflow-x: unset;
+    }
+  
+    table {
+      width: 100%;
+      table-layout: auto;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .tabla-container {
+      padding: 1rem;
+    }
+  
+    .visita-card {
+      margin: 0 1rem;
+      padding: 2rem 1.5rem;
+    }
+  }
+  
+  /* Animación */
+  @keyframes fadeIn {
+    from {
+      transform: scale(0.98);
+      opacity: 0;
+    }
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+  

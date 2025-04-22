@@ -1,0 +1,301 @@
+
+.hero-nosotros {
+  background: url('../../../../public/images/nosotros2.jpg') center/cover no-repeat;
+  height: 600px;
+  position: relative;
+}
+
+.hero-nosotros .overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(54, 33, 5, 0.4); /* Marrón suave con transparencia */
+  z-index: 0;
+}
+
+.hero-title {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #ffffff; /* Blanco puro para mejor contraste */
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6); /* Aumentado para resaltar mejor */
+  margin-bottom: 1rem;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-subtitle {
+  color: #ffffff; /* Blanco puro */
+  font-weight: 400;
+  max-width: 700px;
+  font-size: 1.2rem;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+  position: relative;
+  z-index: 1;
+}
+
+
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2.2rem;
+  }
+  .hero-subtitle {
+    font-size: 1rem;
+  }
+}
+
+@media (min-width: 2000px) {
+  .hero-nosotros {
+    height: 1127px;
+  }
+}
+
+.titulo-seccion {
+  display: block;
+  text-align: center;
+  margin-bottom: 2.5rem;
+  position: relative;
+}
+
+.titulo-seccion h2 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #5c4326;
+  margin-bottom: 0.6rem;
+  display: inline-block;
+  position: relative;
+}
+
+.titulo-seccion h2::after {
+  content: "";
+  display: block;
+  width: 350px; /* Más larga que el texto */
+  max-width: 90%;
+  height: 3px;
+  background-color: #8b5e3c;
+  margin: 0.5rem auto 0 auto;
+  border-radius: 4px;
+}
+
+
+  .seccion-historia {
+    background-color: #fdfbf7; /* tono claro como el resto del sitio */
+    border-top: 6px solid #8a5c2c;
+    border-left: 6px solid #8a5c2c;
+    padding: 2rem;
+    border-radius: 0;
+  }
+
+
+  
+  .border-brown {
+    border-color: #8a5c2c !important;
+  }
+
+  .separador-linea {
+    border-top: 3px solid #d3bfa6;
+    width: 60%;
+    margin: 0 auto;
+    opacity: 0.5;
+  }
+  
+  /* Títulos de secciones */
+.seccion-titulo {
+    color: #5c4326;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .sombra-suave {
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease;
+  }
+  
+  .sombra-suave:hover {
+    transform: scale(1.01);
+  }
+
+  /* Fondo claro para secciones alternas */
+  .fondo-suave {
+    background-color: #f8f4ee;
+  }
+  
+  .fondo-claro {
+    background-color: #fefaf6;
+  }
+  
+  /* Padding general */
+  .seccion-py {
+    padding: 4rem 0;
+  }
+  
+  
+  .text-brown {
+    color: #5c4326;
+  }
+
+  .bg-crema {
+    background-color: #f4ebdd;
+  }
+  
+  .bg-claro {
+    background-color: #f9f5f0;
+  }
+  
+  .text-brown {
+    color: #5c4326;
+  }
+  
+  .shadow-sm {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  }
+
+  .bg-suave {
+    background-color: #f8f4ee;
+  }
+  
+  .timeline-horizontal {
+    position: relative;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+  
+  .timeline-line {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    height: 4px;
+    width: 100%;
+    background-color: #e4b55c;
+    transform: translateY(-50%);
+    z-index: 0;
+  }
+  
+  .timeline-box {
+    position: relative;
+    z-index: 1;
+    background-color: white;
+    padding: 1rem;
+    border-radius: 1rem;
+    width: 150px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
+  }
+  
+  .timeline-box:hover {
+    transform: scale(1.05);
+  }
+  
+  .icon-circle {
+    background-color: #5c4326;
+    color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .card-mision {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 1rem;
+    text-align: center;
+    transition: transform 0.3s ease;
+  }
+  
+  .card-mision:hover {
+    transform: translateY(-5px);
+  }
+
+  
+  .icono-seccion {
+    font-size: 2.5rem;
+    color: #e4b55c; 
+    margin-bottom: 1rem;
+  }
+
+  .btn-outline-brown {
+    border: 2px solid #e4b55c;
+    color: #5c4326;
+    font-weight: 500;
+    transition: all 0.3s ease;
+  }
+  
+  .btn-outline-brown:hover {
+    background-color: #e4b55c;
+    color: white;
+  }
+
+  .fondo-valores {
+    background-color: #fefaf4;
+    padding: 4rem 0;
+  }
+  
+  
+  .seccion-titulo {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #5c4326;
+    margin-bottom: 2rem;
+  }
+  
+  
+  .valor-card-hover {
+    background: #fff;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 2px solid transparent;
+  }
+  
+  .valor-card-hover:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    border-color: #e4b55c;
+  }
+
+  /* Fondo más oscuro pero suave */
+.fondo-mapa {
+  background-color: #e7dfd6;
+}
+
+/* Color marrón elegante para títulos y texto */
+.text-brown {
+  color: #5c4326;
+}
+
+/* Estilo del botón */
+.btn-mapa {
+  border: 2px solid #e4b55c;
+  background-color: transparent;
+  color: #5c4326;
+  transition: all 0.3s ease;
+}
+
+.btn-mapa:hover {
+  background-color: #e4b55c;
+  color: #fff;
+}
+
+  
+  
+  
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .timeline-horizontal {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .timeline-line {
+      display: none;
+    }
+  
+    .timeline-box {
+      width: 100%;
+      max-width: 300px;
+    }
+  }
+  

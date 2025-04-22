@@ -1,0 +1,142 @@
+<section class="py-5">
+    <div class="text-center mb-4">
+      <h2 class="fw-bold text-brown">Gestión de Visitas</h2>
+    </div>
+  
+    <div class="tabla-container mx-auto">
+      <div class="d-flex justify-content-center pb-5 mb-2">
+        <button class="btn btn-brown" data-bs-toggle="modal" data-bs-target="#modalVisita">
+          + Nueva Visita
+        </button>
+      </div>
+  
+      <div class="tabla-scroll">
+        <table class="table table-hover table-bordered align-middle text-center">
+          <thead class="table-light">
+            <tr>
+              <th>Fecha</th>
+              <th>Nombre</th>
+              <th>Teléfono</th>
+              <th>Email</th>
+              <th>Tipo de Animal</th>
+              <th>Comentario</th>
+              <th>Estado</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (visita of visitasPaginadas; track visita.id) {
+              <tr>
+                <td>{{ obtenerFechaFormateada(visita.fecha) }}</td>
+                <td>{{ visita.usuario?.nombre }}</td>
+                <td>{{ visita.telefono }}</td>
+                <td>{{ visita.usuario?.email || '-' }}</td>
+                <td>{{ obtenerTiposDeAnimales(visita) }}</td>
+                <td>
+                  <button class="btn btn-sm btn-ver" (click)="toggleComentario(visita.id!)">
+                    {{  visita.id && comentarioVisible[visita.id] ? 'Ocultar' : 'Ver' }}
+                  </button>
+                </td>
+                <td>
+                <select class="form-select form-select-sm w-auto"
+                        [ngClass]="obtenerClaseEstado(visita.estado)"
+                        (change)="onEstadoChange($event, visita.id)">
+                    <option value="pendiente" [selected]="visita.estado === 'pendiente'">Pendiente</option>
+                    <option value="confirmada" [selected]="visita.estado === 'confirmada'">Confirmada</option>
+                    <option value="cancelada" [selected]="visita.estado === 'cancelada'">Cancelada</option>
+                </select>
+            </td>
+                  
+                <td>
+                  <div class="d-inline-flex gap-1">
+                    <button class="btn btn-sm btn-editar" (click)="editarVisita(visita)">Editar</button>
+                    <button class="btn btn-sm btn-outline-danger" (click)="eliminarVisita(visita.id!)">Eliminar</button>
+                  </div>
+                </td>
+              </tr>
+              @if (visita.id && comentarioVisible[visita.id]) {
+                <tr>
+                  <td colspan="9" class="bg-light text-start p-3">
+                    {{ visita.comentario || 'Sin comentarios.' }}
+                  </td>
+                </tr>
+              }
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  
+    <div class="d-flex justify-content-center mt-4">
+      <nav>
+        <ul class="pagination justify-content-center">
+          <li class="page-item" [class.disabled]="paginaActual === 1">
+            <button class="page-link" (click)="cambiarPagina(paginaActual - 1)">
+              Anterior
+            </button>
+          </li>
+  
+          @for (pagina of paginas; track pagina) {
+            <li class="page-item" [class.active]="paginaActual === pagina">
+              <button class="page-link" (click)="cambiarPagina(pagina)">
+                {{ pagina }}
+              </button>
+            </li>
+          }
+  
+          <li class="page-item" [class.disabled]="paginaActual === totalPaginas">
+            <button class="page-link" (click)="cambiarPagina(paginaActual + 1)">
+              Siguiente
+            </button>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </section>
+  
+  <!-- Modal de Nueva Visita -->
+  <div class="modal fade" id="modalVisita" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content p-5 shadow visita-card position-relative">
+        <button type="button" class="btn-close position-absolute top-0 end-0 m-3" data-bs-dismiss="modal" aria-label="Cerrar" (click)="resetModal()"></button>
+        <h2 class="text-center fw-bold mb-4 text-brown">Agendar Nueva Visita</h2>
+        <p class="text-center text-muted mb-4">Completa los campos para registrar una nueva visita.</p>
+  
+        <form [formGroup]="form" (ngSubmit)="guardarVisita()">
+          <div class="row g-4">
+            <div class="col-md-6">
+                <label class="form-label fw-semibold text-brown">Nombre</label>
+                <input type="text" class="form-control form-control-lg" formControlName="nombreVisitante">
+              </div>
+            <div class="col-md-6">
+              <label class="form-label fw-semibold text-brown">Teléfono *</label>
+              <input formControlName="telefono" class="form-control form-control-lg" type="text" />
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-semibold text-brown">Tipo de Animal *</label>
+              <select formControlName="tipoAnimal" class="form-select form-control-lg">
+                <option disabled selected>Selecciona</option>
+                <option value="Toro">Toro</option>
+                <option value="Vaca">Vaca</option>
+                <option value="Maute">Maute</option>
+                <option value="Novilla">Novilla</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label fw-semibold text-brown">Fecha *</label>
+                <input type="datetime-local" formControlName="fecha" class="form-control form-control-lg" />
+              </div>
+              
+            <div class="col-12">
+              <label class="form-label fw-semibold text-brown">Comentario</label>
+              <textarea formControlName="comentario" rows="3" class="form-control form-control-lg"></textarea>
+            </div>
+          </div>
+          <div class="text-center mt-4">
+            <button type="submit" class="btn btn-brown w-100 py-2 fs-5">Guardar Visita</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  
