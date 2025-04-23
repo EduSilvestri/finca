@@ -67,9 +67,7 @@ export class VisitaComponent implements OnInit {
     const payload = {
       nombre: this.nombreControl.value,
       email: this.emailControl.value,
-      animales: [
-        { tipo: this.form.value.tipoAnimal }
-      ],
+      tipoAnimal: this.form.value.tipoAnimal,
       fecha: this.form.value.fecha + 'T' + this.form.value.hora + ':00',
       telefono: this.form.value.telefono,
       comentario: this.form.value.comentario

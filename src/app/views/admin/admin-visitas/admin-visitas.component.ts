@@ -21,6 +21,7 @@ export class AdminVisitasComponent implements OnInit {
   comentarioVisible: { [key: number]: boolean } = {};
   form!: FormGroup;
   visitaEditandoId: number | null = null;
+  private modalVisitaInstance: any; // ✅ Instancia del modal
 
   paginaActual: number = 1;
   visitasPorPagina: number = 15;
@@ -54,18 +55,14 @@ export class AdminVisitasComponent implements OnInit {
       nombreVisitante: [{ value: '', disabled: true }],
       telefono: [''],
       tipoAnimal: [''],
-      fecha: [''], // aquí guardarás 'YYYY-MM-DD'
-      hora: [''],  // seleccionada de horasDisponibles
+      fecha: [''],
+      hora: [''],
       comentario: ['']
     });
   }
 
   obtenerTiposDeAnimales(visita: Visita): string {
-    if (!visita.animales || visita.animales.length === 0) return '-';
-    return visita.animales
-      .map(a => a.tipo)
-      .filter(Boolean)
-      .join(', ');
+    return visita.tipoAnimal ?? '-';
   }
 
   obtenerFechaFormateada(fechaIso: string): string {
@@ -74,7 +71,6 @@ export class AdminVisitasComponent implements OnInit {
     return texto.charAt(0).toUpperCase() + texto.slice(1);
   }
 
-  
   obtenerClaseEstado(estado: string | null | undefined): string {
     switch ((estado || '').toLowerCase()) {
       case 'confirmada':
@@ -86,7 +82,6 @@ export class AdminVisitasComponent implements OnInit {
         return 'badge-estado badge-pendiente';
     }
   }
-  
 
   cargarVisitas(): void {
     this.visitaService.getVisitas().subscribe((data: any) => {
@@ -97,7 +92,6 @@ export class AdminVisitasComponent implements OnInit {
       console.error('Error al cargar visitas:', error);
     });
   }
-  
 
   guardarVisita(): void {
     if (this.form.invalid) return;
@@ -106,28 +100,27 @@ export class AdminVisitasComponent implements OnInit {
 
     const data: any = {
       telefono: raw.telefono,
-      fecha: `${raw.fecha}T${raw.hora}`,  // combinar fecha y hora
-      comentario: raw.comentario
+      fecha: `${raw.fecha}T${raw.hora}`,
+      comentario: raw.comentario,
+      nombreVisitante: raw.nombreVisitante,
+      email: raw.email,
+      tipoAnimal: raw.tipoAnimal
     };
-
-    if (!this.visitaEditandoId) {
-      data.animales = [{ tipo: raw.tipoAnimal }];
-    }
 
     if (this.visitaEditandoId) {
       this.visitaService.actualizarVisita(this.visitaEditandoId, data).subscribe(() => {
         this.cargarVisitas();
         this.resetModal();
+        this.modalVisitaInstance?.hide(); // ✅ Cierra el modal después de editar
       });
     } else {
       this.visitaService.crearVisita(data).subscribe(() => {
         this.cargarVisitas();
         this.resetModal();
+        this.modalVisitaInstance?.hide(); // ✅ Cierra el modal después de crear
       });
     }
   }
-
-  
 
   editarVisita(visita: Visita): void {
     this.visitaEditandoId = visita.id ?? null;
@@ -137,23 +130,22 @@ export class AdminVisitasComponent implements OnInit {
     const horaStr = fecha.toTimeString().substring(0, 5);
 
     this.form.patchValue({
-      nombreVisitante: visita.usuario?.nombre || 'Sin nombre',
+      nombreVisitante: visita.nombreVisitante || 'Sin nombre',
       telefono: visita.telefono,
-      tipoAnimal: visita.tipoAnimal || (visita.animales?.[0]?.tipo ?? ''),
+      tipoAnimal: visita.tipoAnimal ?? '',
       fecha: fechaStr,
       hora: horaStr,
       comentario: visita.comentario || ''
     });
 
-    const modal = new bootstrap.Modal(document.getElementById('modalVisita')!);
-    modal.show();
+    this.modalVisitaInstance = new bootstrap.Modal(document.getElementById('modalVisita')!);
+    this.modalVisitaInstance.show();
   }
-
 
   eliminarVisita(id: number): void {
     console.log('Intentando eliminar visita ID:', id);
     if (!confirm('¿Estás seguro de eliminar esta visita?')) return;
-  
+
     this.visitaService.eliminarVisita(id).subscribe(() => {
       console.log('Visita eliminada');
       this.cargarVisitas();
@@ -161,7 +153,6 @@ export class AdminVisitasComponent implements OnInit {
       console.error('Error al eliminar visita:', error);
     });
   }
-  
 
   toggleComentario(id: number): void {
     this.comentarioVisible[id] = !this.comentarioVisible[id];
@@ -175,19 +166,17 @@ export class AdminVisitasComponent implements OnInit {
 
   cambiarEstado(id: number | undefined, nuevoEstado: string): void {
     if (!id) return;
-  
+
     const token = localStorage.getItem('token') || '';
-  
     const visita = this.visitas.find(v => v.id === id);
     if (!visita) return;
-  
-    // Clonar la visita y actualizar solo el estado
+
     const visitaActualizada = { ...visita, estado: nuevoEstado };
 
     this.api.patchWithAuth(`visitas/${id}`, { estado: nuevoEstado }, token).subscribe({
       next: () => {
         console.log('Estado actualizado');
-        this.cargarVisitas(); // o actualizar solo esa visita localmente si prefieres
+        this.cargarVisitas();
       },
       error: err => {
         console.error('Error al actualizar estado:', err);
@@ -198,13 +187,12 @@ export class AdminVisitasComponent implements OnInit {
 
   onEstadoChange(event: Event, visitaId: number | undefined) {
     if (!visitaId) return;
-  
+
     const selectElement = event.target as HTMLSelectElement;
     const nuevoEstado = selectElement.value;
-  
+
     this.cambiarEstado(visitaId, nuevoEstado);
   }
-  
 
   actualizarPaginacion(): void {
     const inicio = (this.paginaActual - 1) * this.visitasPorPagina;
