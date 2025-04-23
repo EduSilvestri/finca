@@ -17,17 +17,21 @@ declare var bootstrap: any;
 })
 export class AdminVisitasComponent implements OnInit {
   visitas: Visita[] = [];
+  visitasFiltradas: Visita[] = [];
   visitasPaginadas: Visita[] = [];
   comentarioVisible: { [key: number]: boolean } = {};
   form!: FormGroup;
   visitaEditandoId: number | null = null;
-  private modalVisitaInstance: any; // ✅ Instancia del modal
+  private modalVisitaInstance: any;
 
   paginaActual: number = 1;
   visitasPorPagina: number = 15;
   totalPaginas: number = 1;
   paginas: number[] = [];
   horasDisponibles: string[] = [];
+
+  estadoSeleccionado: string = 'todos';
+  estados: string[] = ['todos', 'pendiente', 'confirmada', 'cancelada'];
 
   constructor(
     private fb: FormBuilder,
@@ -44,8 +48,7 @@ export class AdminVisitasComponent implements OnInit {
   generarHorasDisponibles(): void {
     const horas: string[] = [];
     for (let h = 8; h <= 17; h++) {
-      const hora = h < 10 ? `0${h}:00` : `${h}:00`;
-      horas.push(hora);
+      horas.push(h < 10 ? `0${h}:00` : `${h}:00`);
     }
     this.horasDisponibles = horas;
   }
@@ -84,47 +87,74 @@ export class AdminVisitasComponent implements OnInit {
   }
 
   cargarVisitas(): void {
-    this.visitaService.getVisitas().subscribe((data: any) => {
-      console.log('Visitas recibidas:', data);
-      this.visitas = data['hydra:member'];
-      this.actualizarPaginacion();
-    }, (error) => {
-      console.error('Error al cargar visitas:', error);
+    this.visitaService.getVisitas().subscribe({
+      next: (data: any) => {
+        this.visitas = data['hydra:member'];
+        this.filtrarPorEstado();
+      },
+      error: (error) => {
+        console.error('Error al cargar visitas:', error);
+      }
     });
+  }
+
+  filtrarPorEstado(): void {
+    const estado = this.estadoSeleccionado.toLowerCase().trim();
+  
+    if (estado === 'todos') {
+      this.visitasFiltradas = [...this.visitas];
+    } else {
+      this.visitasFiltradas = this.visitas.filter((v) => {
+        const estadoVisita = (v.estado || 'pendiente').toLowerCase().trim();
+        return estadoVisita === estado;
+      });
+    }
+  
+    // Ordenar por fecha: primero las más cercanas
+    this.visitasFiltradas.sort((a, b) => {
+      const fechaA = new Date(a.fecha).getTime();
+      const fechaB = new Date(b.fecha).getTime();
+      return fechaA - fechaB;
+    });
+  
+    this.paginaActual = 1;
+    this.actualizarPaginacion();
+  }
+  
+  
+  
+  
+
+  cambiarFiltro(estado: string): void {
+    this.estadoSeleccionado = estado;
+    this.filtrarPorEstado();
   }
 
   guardarVisita(): void {
     if (this.form.invalid) return;
 
     const raw = this.form.getRawValue();
-
     const data: any = {
       telefono: raw.telefono,
       fecha: `${raw.fecha}T${raw.hora}`,
       comentario: raw.comentario,
       nombreVisitante: raw.nombreVisitante,
-      email: raw.email,
       tipoAnimal: raw.tipoAnimal
     };
 
-    if (this.visitaEditandoId) {
-      this.visitaService.actualizarVisita(this.visitaEditandoId, data).subscribe(() => {
-        this.cargarVisitas();
-        this.resetModal();
-        this.modalVisitaInstance?.hide(); // ✅ Cierra el modal después de editar
-      });
-    } else {
-      this.visitaService.crearVisita(data).subscribe(() => {
-        this.cargarVisitas();
-        this.resetModal();
-        this.modalVisitaInstance?.hide(); // ✅ Cierra el modal después de crear
-      });
-    }
+    const observable = this.visitaEditandoId
+      ? this.visitaService.actualizarVisita(this.visitaEditandoId, data)
+      : this.visitaService.crearVisita(data);
+
+    observable.subscribe(() => {
+      this.cargarVisitas();
+      this.resetModal();
+      this.modalVisitaInstance?.hide();
+    });
   }
 
   editarVisita(visita: Visita): void {
     this.visitaEditandoId = visita.id ?? null;
-
     const fecha = new Date(visita.fecha);
     const fechaStr = fecha.toISOString().split('T')[0];
     const horaStr = fecha.toTimeString().substring(0, 5);
@@ -143,13 +173,11 @@ export class AdminVisitasComponent implements OnInit {
   }
 
   eliminarVisita(id: number): void {
-    console.log('Intentando eliminar visita ID:', id);
     if (!confirm('¿Estás seguro de eliminar esta visita?')) return;
 
     this.visitaService.eliminarVisita(id).subscribe(() => {
-      console.log('Visita eliminada');
       this.cargarVisitas();
-    }, (error) => {
+    }, error => {
       console.error('Error al eliminar visita:', error);
     });
   }
@@ -164,6 +192,14 @@ export class AdminVisitasComponent implements OnInit {
     this.actualizarPaginacion();
   }
 
+  actualizarPaginacion(): void {
+    const inicio = (this.paginaActual - 1) * this.visitasPorPagina;
+    const fin = inicio + this.visitasPorPagina;
+    this.visitasPaginadas = this.visitasFiltradas.slice(inicio, fin);
+    this.totalPaginas = Math.ceil(this.visitasFiltradas.length / this.visitasPorPagina);
+    this.paginas = Array.from({ length: this.totalPaginas }, (_, i) => i + 1);
+  }
+
   cambiarEstado(id: number | undefined, nuevoEstado: string): void {
     if (!id) return;
 
@@ -171,13 +207,8 @@ export class AdminVisitasComponent implements OnInit {
     const visita = this.visitas.find(v => v.id === id);
     if (!visita) return;
 
-    const visitaActualizada = { ...visita, estado: nuevoEstado };
-
     this.api.patchWithAuth(`visitas/${id}`, { estado: nuevoEstado }, token).subscribe({
-      next: () => {
-        console.log('Estado actualizado');
-        this.cargarVisitas();
-      },
+      next: () => this.cargarVisitas(),
       error: err => {
         console.error('Error al actualizar estado:', err);
         alert('Hubo un error al actualizar el estado.');
@@ -187,23 +218,20 @@ export class AdminVisitasComponent implements OnInit {
 
   onEstadoChange(event: Event, visitaId: number | undefined) {
     if (!visitaId) return;
-
-    const selectElement = event.target as HTMLSelectElement;
-    const nuevoEstado = selectElement.value;
-
+    const nuevoEstado = (event.target as HTMLSelectElement).value;
     this.cambiarEstado(visitaId, nuevoEstado);
   }
 
-  actualizarPaginacion(): void {
-    const inicio = (this.paginaActual - 1) * this.visitasPorPagina;
-    const fin = inicio + this.visitasPorPagina;
-    this.visitasPaginadas = this.visitas.slice(inicio, fin);
-    this.totalPaginas = Math.ceil(this.visitas.length / this.visitasPorPagina);
-    this.paginas = Array.from({ length: this.totalPaginas }, (_, i) => i + 1);
+  abrirModalCrear(): void {
+    this.visitaEditandoId = null;
+    this.modalVisitaInstance = new bootstrap.Modal(document.getElementById('modalVisita')!);
+    this.modalVisitaInstance.show();
   }
+  
 
   resetModal(): void {
     this.form.reset();
     this.visitaEditandoId = null;
   }
 }
+

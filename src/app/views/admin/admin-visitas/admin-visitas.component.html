@@ -5,9 +5,20 @@
   
     <div class="tabla-container mx-auto">
       <div class="d-flex justify-content-center pb-5 mb-2">
-        <button class="btn btn-brown" data-bs-toggle="modal" data-bs-target="#modalVisita">
+        <button class="btn btn-brown" (click)="abrirModalCrear()">
           + Nueva Visita
         </button>
+      </div>
+      <div class="d-flex justify-content-center gap-2 mb-4 flex-wrap">
+        @for (estado of estados; track estado) {
+          <button
+            class="btn btn-outline-brown"
+            [ngClass]="{ 'active': estadoSeleccionado === estado }"
+            (click)="cambiarFiltro(estado)"
+          >
+            {{ estado.charAt(0).toUpperCase() + estado.slice(1) }}
+          </button>
+        }
       </div>
   
       <div class="tabla-scroll">

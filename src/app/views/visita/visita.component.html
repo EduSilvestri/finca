@@ -1,6 +1,6 @@
 <section class="visita-section d-flex align-items-center justify-content-center py-5 fondo-claro">
-  <div class="visita-card p-5 shadow rounded">
-    <h2 class="text-center fw-bold mb-4 text-brown">Agendar Visita</h2>
+  <div class="visita-card p-5 shadow rounded text-center">
+    <h2 class="fw-bold mb-4 text-brown">Agendar Visita</h2>
     <p class="text-center text-muted mb-4">Completa los siguientes campos para programar tu visita a la hacienda.</p>
 
     <form [formGroup]="form" (ngSubmit)="agendarVisita()">
@@ -72,3 +72,79 @@
     </form>
   </div>
 </section>
+
+@if (visitasFiltradas.length > 0) {
+<div class="tabla-container mt-5">
+  <div class="text-center mb-4">
+    <h2 class="fw-bold text-brown">Mis Visitas</h2>
+  </div>
+  <div class="tabla-scroll">
+    <table class="table table-hover table-bordered align-middle text-center">
+      <thead class="table-light">
+        <tr>
+          <th>Fecha</th>
+          <th>Nombre</th>
+          <th>Teléfono</th>
+          <th>Email</th>
+          <th>Tipo de Animal</th>
+          <th>Comentario</th>
+          <th>Estado</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (visita of visitasPaginadas; track visita.id) {
+          <tr>
+            <td>{{ obtenerFechaFormateada(visita.fecha) }}</td>
+            <td>{{ visita.nombreVisitante || visita.usuario?.nombre }}</td>
+            <td>{{ visita.telefono }}</td>
+            <td>{{ visita.usuario?.email || '-' }}</td>
+            <td>{{ obtenerTiposDeAnimales(visita) }}</td>
+            <td>
+              <button class="btn btn-sm btn-ver" (click)="toggleComentario(visita.id!)">
+                {{ visita.id && comentarioVisible[visita.id] ? 'Ocultar' : 'Ver' }}
+              </button>
+            </td>
+            <td>
+              <span [ngClass]="obtenerClaseEstado(visita.estado)">{{ visita.estado || 'Pendiente' }}</span>
+            </td>
+          </tr>
+          @if (visita.id && comentarioVisible[visita.id]) {
+            <tr>
+              <td colspan="7" class="bg-light text-start p-3">
+                {{ visita.comentario || 'Sin comentarios.' }}
+              </td>
+            </tr>
+          }
+        }
+      </tbody>
+    </table>
+    
+      <div class="d-flex justify-content-center mt-4">
+        <nav>
+          <ul class="pagination justify-content-center">
+            <li class="page-item" [class.disabled]="paginaActual === 1">
+              <button class="page-link" (click)="cambiarPagina(paginaActual - 1)">
+                Anterior
+              </button>
+            </li>
+    
+            @for (pagina of paginas; track pagina) {
+              <li class="page-item" [class.active]="paginaActual === pagina">
+                <button class="page-link" (click)="cambiarPagina(pagina)">
+                  {{ pagina }}
+                </button>
+              </li>
+            }
+    
+            <li class="page-item" [class.disabled]="paginaActual === totalPaginas">
+              <button class="page-link" (click)="cambiarPagina(paginaActual + 1)">
+                Siguiente
+              </button>
+            </li>
+          </ul>
+        </nav>
+      </div>    
+    
+  </div>
+</div>
+}

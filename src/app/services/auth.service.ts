@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { signal, computed } from '@angular/core';
 import { tap } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class AuthService {
   private _user = signal<any>(null);
   user = computed(() => this._user());
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private router: Router) {
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
       this._user.set(JSON.parse(storedUser));
@@ -35,6 +36,7 @@ export class AuthService {
     localStorage.removeItem(this.tokenKey);
     localStorage.removeItem('user');
     this._user.set(null);
+    this.router.navigate(['/']);
   }
 
   getToken(): string | null {
